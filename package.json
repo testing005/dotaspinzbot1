@@ -1,0 +1,28 @@
+{
+   "name":"dotaspinzbot1",
+   "version":"0.2.5",
+   "description":"Bot For Trading",
+   "engines":{
+   	"node":"5.9.1"
+   },
+   "main":"index.js",
+   "scripts":{
+   	   "start":"node index.js"
+   },
+   "dependencies":{
+   	"express":"4.14.0",
+   	"fs":"0.0.2",
+   	"steam-totp":"1.4.0",
+   	"steam-tradeoffer-manager":"2.3.2",
+   	"steam-user":"3.13.1",
+   	"steamcommunity":"3.27.2",
+   	"steamid":"1.1.0"
+   },
+   "repository":{
+		"type":"git",
+		"url":"https://github.com/testing005/dotaspinzbot1"
+},
+
+   "keywords":["dota","spinz","bot"]
+   
+}
