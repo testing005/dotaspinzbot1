@@ -35,7 +35,7 @@ if(fs.existsSync('polldata.json')){
 client.logOn({
 	'accountName':'dotaspinsbot2',
 	'password':'Spinbot2',
-	'twoFactorCode':steamtotp.generateAuthCode("jeIRjLIbGXPhm1A6Jwv6KDU65wg="),
+	'twoFactorCode':steamtotp.generateAuthCode("####"),
 	'rememberPassword':true
 });
 //console.log("crossed login method");
@@ -60,7 +60,7 @@ client.on("webSession",function(sessionID,cookies){
 	console.log("Got api key :"+manager.apikey);
 	community.loggedIn(function(err,loggedIn){
 		console.log(loggedIn);
-	community.startConfirmationChecker(3000,"iT0gC0eFI6q\/a2ysqzEd05UYtps=");
+	community.startConfirmationChecker(3000,"####");
 
 	//GET PROCESS************************************************************
     app.get("/deposit",function(req,res){
@@ -220,12 +220,12 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 
 community.on("confKeyNeeded",function(tag,callback){
 	var time=Math.floor(Date.now()/1000);
-	callback(null,time,steamtotp.getConfirmationKey("iT0gC0eFI6q\/a2ysqzEd05UYtps=",time.tag))
+	callback(null,time,steamtotp.getConfirmationKey("######",time.tag))
 });
 
 
 community.on("newConfirmation",function(cconfirmation){
-	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("iT0gC0eFI6q\/a2ysqzEd05UYtps=",Math.floor(Date.now()/1000),"allow"),true,function(err){
+	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("######",Math.floor(Date.now()/1000),"allow"),true,function(err){
 		if(err){
 			console.log("confirmation failed: "+err);
 			return;
