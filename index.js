@@ -4,7 +4,7 @@ var steamuser=require('steam-user');
 var tradeoffermanager=require('steam-tradeoffer-manager');
 var fs=require('fs');
 var steamID=require('steamid');
-var port=process.env.PORT||9100;
+var port=process.env.PORT||9200;
 var express=require('express');
 var http=require('http');
 var app=new express();
@@ -33,9 +33,9 @@ if(fs.existsSync('polldata.json')){
 
 
 client.logOn({
-	'accountName':'dotaspinsbot2',
-	'password':'Spinbot2',
-	'twoFactorCode':steamtotp.generateAuthCode("jelRjLlbGXPhm1A6Jwv6KDU65wg="),
+	'accountName':'lol_nikhil2',
+	'password':'l0lnikhil',
+	'twoFactorCode':steamtotp.generateAuthCode("h\/pcOOTosL395cGh3l5Llk5q3iU="),
 	'rememberPassword':true
 });
 //console.log("crossed login method");
@@ -60,7 +60,7 @@ client.on("webSession",function(sessionID,cookies){
 	console.log("Got api key :"+manager.apikey);
 	community.loggedIn(function(err,loggedIn){
 		console.log(loggedIn);
-	community.startConfirmationChecker(3000,"iT0gC0eFI6q\/a2ysqzEd05UYtps=");
+	community.startConfirmationChecker(3000,"4YIDVDoB1sG+j96AZnV2Wlmvc8g=");
 
 	//GET PROCESS************************************************************
     app.get("/deposit",function(req,res){
@@ -217,12 +217,12 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 
 community.on("confKeyNeeded",function(tag,callback){
 	var time=Math.floor(Date.now()/1000);
-	callback(null,time,steamtotp.getConfirmationKey("iT0gC0eFI6q\/a2ysqzEd05UYtps=",time.tag))
+	callback(null,time,steamtotp.getConfirmationKey("4YIDVDoB1sG+j96AZnV2Wlmvc8g=",time.tag))
 });
 
 
 community.on("newConfirmation",function(cconfirmation){
-	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("iT0gC0eFI6q\/a2ysqzEd05UYtps=",Math.floor(Date.now()/1000),"allow"),true,function(err){
+	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("4YIDVDoB1sG+j96AZnV2Wlmvc8g=",Math.floor(Date.now()/1000),"allow"),true,function(err){
 		if(err){
 			console.log("confirmation failed: "+err);
 			return;
