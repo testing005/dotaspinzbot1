@@ -210,7 +210,7 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 });
 
 /*manager.on("sentOfferChanged",function(offer,oldState){
-	          console.log(offer.id+" "+oldstate);
+	          console.log(offer.id+" "+oldstate); 
            if(oldState==2)
            	 {
            	 	 console.log("trade is active");
