@@ -236,7 +236,7 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 				});
                   	
 
-              var url="http://localhost:8080/dota/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=1";
+              var url="http://localhost:8080/dota/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=2";
 
               console.log(url);
          
