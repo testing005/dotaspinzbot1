@@ -22,7 +22,7 @@ var timer=setInterval(function(req,res){
    	 		   }
    	 	})
    	 }else if(botno==2)
-   	 {
+   	        {
    	 	request.get("http://dotaspinzbot2.herokuapp.com/",function(error,response,body){
    	 		if(error){
    	 			console.log(error);
@@ -31,10 +31,10 @@ var timer=setInterval(function(req,res){
    	 		}else if(response)
    	 		   {
    	 		   	console.log(response);
-   	 		   }
-   	 	})}else if(botno==3)
-   	 {
-   	 	request.get("http://dotaspinzbot3.herokuapp.com/",function(error,response,body){
+   	 		   }})
+		}else if(botno==3)
+   	          	 {
+   	 		request.get("http://dotaspinzbot3.herokuapp.com/",function(error,response,body){
    	 		if(error){
    	 			console.log(error);
    	 		}else if(body){
@@ -42,21 +42,19 @@ var timer=setInterval(function(req,res){
    	 		}else if(response)
    	 		   {
    	 		   	console.log(response);
-   	 		   }
-   	 	})}else if(botno==4)
-   	 {
-   	 	request.get("http://dotaspinzbot4.herokuapp.com/",function(error,response,body){
-   	 		if(error){
+   	 		   }})
+			 }else if(botno==4)
+   	                    {
+   	 	        	   request.get("http://dotaspinzbot4.herokuapp.com/",function(error,response,body){
+   	 			if(error){
    	 			console.log(error);
-   	 		}else if(body){
+   	 			}else if(body){
    	 			console.log(body);
-   	 		}else if(response)
-   	 		   {
-   	 		   	console.log(response);
-   	 		   }
-   	 	})
-   	 }
-   	 
-   	 }
+   	 			}else if(response)
+   	 		 	  {
+   	 		 	  	console.log(response);
+   	 		 	  }
+   	 	        	 })
+   	            	 }
 
 },30000);
