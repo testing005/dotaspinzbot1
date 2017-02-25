@@ -56,7 +56,7 @@ var timer=setInterval(function(req,res){
    	 		   }
    	 	})
    	 }
-   	 }
+   	 
    	 }
 
 },30000);
