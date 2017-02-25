@@ -32,7 +32,7 @@ var timer=setInterval(function(req,res){
    	 		   {
    	 		   	console.log(response);
    	 		   }
-   	 	})else if(botno==3)
+   	 	})}else if(botno==3)
    	 {
    	 	request.get("http://dotaspinzbot3.herokuapp.com/",function(error,response,body){
    	 		if(error){
@@ -43,7 +43,7 @@ var timer=setInterval(function(req,res){
    	 		   {
    	 		   	console.log(response);
    	 		   }
-   	 	})else if(botno==4)
+   	 	})}else if(botno==4)
    	 {
    	 	request.get("http://dotaspinzbot4.herokuapp.com/",function(error,response,body){
    	 		if(error){
