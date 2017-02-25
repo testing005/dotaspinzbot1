@@ -22,7 +22,7 @@ var timer=setInterval(function(req,res){
    	 		   }
    	 	});
 
-         request.get("http://wakeupbots.herokuapp.com/"function(error,response,body){
+         request.get("http://wakeupbots.herokuapp.com/",function(error,response,body){
             if(error){
                console.log("requested myself to avoid sleep");
             }else if(body){
@@ -45,7 +45,7 @@ var timer=setInterval(function(req,res){
    	 		   }
    	 	});
 
-         request.get("http://wakeupbots.herokuapp.com/"function(error,response,body){
+         request.get("http://wakeupbots.herokuapp.com/",function(error,response,body){
             if(error){
                console.log("requested myself to avoid sleep");
             }else if(body){
@@ -67,7 +67,7 @@ var timer=setInterval(function(req,res){
    	 		   	console.log(response);
    	 		   }
    	 	});
-         request.get("http://wakeupbots.herokuapp.com/"function(error,response,body){
+         request.get("http://wakeupbots.herokuapp.com/",function(error,response,body){
             if(error){
                console.log("requested myself to avoid sleep");
             }else if(body){
@@ -88,7 +88,7 @@ var timer=setInterval(function(req,res){
    	 		   	console.log(response);
    	 		   }
    	 	});
-         request.get("http://wakeupbots.herokuapp.com/"function(error,response,body){
+         request.get("http://wakeupbots.herokuapp.com/",function(error,response,body){
             if(error){
                console.log("requested myself to avoid sleep");
             }else if(body){
