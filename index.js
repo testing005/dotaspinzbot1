@@ -4,7 +4,7 @@ var steamuser=require('steam-user');
 var tradeoffermanager=require('steam-tradeoffer-manager');
 var fs=require('fs');
 var steamID=require('steamid');
-var port=5000;
+var port=process.env.PORT || 5000;
 var express=require('express');
 var http=require('http');
 var app=new express();
@@ -236,7 +236,7 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 				});
                   	
 
-              var url="http://localhost:8080/dota/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=1";
+              var url="http://localhost:8080/dota/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=2";
 
               console.log(url);
          
