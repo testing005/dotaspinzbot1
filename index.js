@@ -36,7 +36,7 @@ if(fs.existsSync('polldata.json')){
 client.logOn({
 	'accountName':'dotaspinsbot2',
 	'password':'Spinbot2',
-	'twoFactorCode':steamtotp.generateAuthCode("jeIRjLIbGXPhm1A6Jwv6KDU65wg="),
+	'twoFactorCode':steamtotp.generateAuthCode("jelRjLlbGXPhm1A6Jwv6KDU65wg="),
 	'rememberPassword':true
 });
 //console.log("crossed login method");
