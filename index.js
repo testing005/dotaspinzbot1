@@ -128,12 +128,12 @@ app.get("/status",function(req,res){
      if(tradestatus[i][0]==offerid)
      	{
          res.write("accepted");
-         res.end();}
+         }
          else{
               res.write("pending");
-              res.end();}
+              }
   }	
-
+res.end();
 });
 
    //END OF GET
@@ -141,7 +141,7 @@ app.get("/status",function(req,res){
 //start get
 
 app.get("/assests",function(req,res){
-  var botofferid=(req.query.oid).toString();
+  var botofferid=req.query.oid;
   var i=0;
   res.writeHead(200,{"Content-Type":"text/html"});
   for(i=0;i<tradestatus.length;i++)
@@ -149,11 +149,12 @@ app.get("/assests",function(req,res){
      if(tradestatus[i][0]==botofferid)
      	{
          res.write(" "+tradeitems[i][0]);
-         res.end();}
+         }
          else{
               res.write("pending");
-              res.end();}
+              }
   }	
+  res.end();
 
 });
 
