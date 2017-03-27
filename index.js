@@ -34,9 +34,9 @@ if(fs.existsSync('polldata.json')){
 
 
 client.logOn({
-	'accountName':'lol_nikhil2',
-	'password':'l0lnikhil',
-	'twoFactorCode':steamtotp.generateAuthCode("h\/pcOOTosL395cGh3l5Llk5q3iU="),
+	'accountName':'dotaspinsbot1',
+	'password':'Spinbot1',
+	'twoFactorCode':steamtotp.generateAuthCode("Ej3AhZ5iMs3C6ORs2ybLWHGeF5c="),
 	'rememberPassword':true
 });
 //console.log("crossed login method");
@@ -61,7 +61,7 @@ client.on("webSession",function(sessionID,cookies){
 	console.log("Got api key :"+manager.apikey);
 	community.loggedIn(function(err,loggedIn){
 		console.log(loggedIn);
-	community.startConfirmationChecker(3000,"4YIDVDoB1sG+j96AZnV2Wlmvc8g=");
+	community.startConfirmationChecker(3000,"Jd4gjkke213zI9Ye3JBv5pWWr1E=");
 
 	//GET PROCESS************************************************************
     app.get("/deposit",function(req,res){
@@ -237,7 +237,7 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 				});
                   	
 
-              var url="http://www.dotaspinz.com/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=2";
+              var url="http://www.dotaspinz.com/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=1";
 
               console.log(url);
          
@@ -262,12 +262,12 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 
 community.on("confKeyNeeded",function(tag,callback){
 	var time=Math.floor(Date.now()/1000);
-	callback(null,time,steamtotp.getConfirmationKey("4YIDVDoB1sG+j96AZnV2Wlmvc8g=",time.tag))
+	callback(null,time,steamtotp.getConfirmationKey("Jd4gjkke213zI9Ye3JBv5pWWr1E=",time.tag))
 });
 
 
 community.on("newConfirmation",function(cconfirmation){
-	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("4YIDVDoB1sG+j96AZnV2Wlmvc8g=",Math.floor(Date.now()/1000),"allow"),true,function(err){
+	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("Jd4gjkke213zI9Ye3JBv5pWWr1E=",Math.floor(Date.now()/1000),"allow"),true,function(err){
 		if(err){
 			console.log("confirmation failed: "+err);
 			return;
