@@ -4,13 +4,13 @@ var steamuser=require('steam-user');
 var tradeoffermanager=require('steam-tradeoffer-manager');
 var fs=require('fs');
 var steamID=require('steamid');
-var port=process.env.PORT || 9900;
+var port=process.env.PORT||5000;
 var express=require('express');
 var http=require('http');
-var request=require('request');
 var app=new express();
+var request=require('request');
 app.listen(port,function(){
-	console.log("running on port 5000");
+	console.log("running on port "+port);
 });
 
 var counter=0;
@@ -34,9 +34,9 @@ if(fs.existsSync('polldata.json')){
 
 
 client.logOn({
-	'accountName':'lol_nikhil5',
-	'password':'@nikhilking@005',
-	'twoFactorCode':steamtotp.generateAuthCode("O\/VCcMWtNHIIRSEpMJVH1BrRlu8="),
+	'accountName':'dotaspinsbot2',
+	'password':'Spinbot2',
+	'twoFactorCode':steamtotp.generateAuthCode("jeIRjLIbGXPhm1A6Jwv6KDU65wg="),
 	'rememberPassword':true
 });
 //console.log("crossed login method");
@@ -61,21 +61,34 @@ client.on("webSession",function(sessionID,cookies){
 	console.log("Got api key :"+manager.apikey);
 	community.loggedIn(function(err,loggedIn){
 		console.log(loggedIn);
-	community.startConfirmationChecker(3000,"40lccQ2d9Ua3vuLjiEX3XImxPzc=");
+	community.startConfirmationChecker(3000,"iT0gC0eFI6q\/a2ysqzEd05UYtps=");
 
 	//GET PROCESS************************************************************
     app.get("/deposit",function(req,res){
     	var idnty=req.query.dbid;
+
     	var reqitems=JSON.parse(req.query.idata);
+        console.log(req.query.idata);
+        console.log(reqitems);
+
     	/*res.write(200,{"Content-Type":"text/html"});
     	res.write(idnty);
     	res.write(reqitems);
     	res.end();*/
+  /*var gtoken=idnty.substring(idnty.length-8);
+  console.log(gtoken);*/
 
   var offer=manager.createOffer(idnty);
   var gtoken=req.query.token;
   offer.setToken(gtoken);
-offer.addMyItems(reqitems);
+  var i=0;
+  for(i=0;i<reqitems.length;i++)
+  	 {
+  	 	offer.addTheirItem(reqitems[i]);
+  	 }
+
+//offer.addTheirItems(reqitems);
+//console.log(offer);
 
 offer.send(function(err,status){
 	res.writeHead(200,{"Content-Type":"text/html"});
@@ -108,18 +121,17 @@ app.get("/",function(req,res){
     
 app.get("/status",function(req,res){
   var offerid=req.query.oid;
+  res.writeHead(200,{"Content-Type":"text/html"});
   var i=0;
   for(i=0;i<tradestatus.length;i++)
-   {
+   { 
      if(tradestatus[i][0]==offerid)
-     	{res.writeHead(200,{"Content-Type":"text/html"});
+     	{
          res.write("accepted");
-         res.end();}
-         else{res.writeHead(200,{"Content-Type":"text/html"});
-              res.write("pending");
-              res.end();}
+         }
+         
   }	
-
+res.end();
 });
 
    //END OF GET
@@ -129,16 +141,18 @@ app.get("/status",function(req,res){
 app.get("/assests",function(req,res){
   var botofferid=req.query.oid;
   var i=0;
+  res.writeHead(200,{"Content-Type":"text/html"});
   for(i=0;i<tradestatus.length;i++)
    {
      if(tradestatus[i][0]==botofferid)
-     	{res.writeHead(200,{"Content-Type":"text/html"});
-         res.write(" "+tradeitems[i][0]);
-         res.end();}
-         else{res.writeHead(200,{"Content-Type":"text/html"});
-              res.write("pending");
-              res.end();}
+     	{  
+         if(tradeitems[i][0].length==1)
+         res.write(" "+tradeitems[i][0]+",");
+         }else{
+          res.write(" "+tradeitems[i][0])
+         }
   }	
+  res.end();
 
 });
 
@@ -155,13 +169,42 @@ app.get("/assests",function(req,res){
 })
 
 
+
+
+app.get("/mbot",function(req,res){
+
+ var reqitems=JSON.parse(req.query.idata);
+
+  var offer=manager.createOffer("https://steamcommunity.com/tradeoffer/new/?partner=374239303");
+  
+  offer.setToken("T6we4blq");for(i=0;i<reqitems.length;i++)
+  	 {
+  	 	offer.addMyItem(reqitems[i]);
+  	 }
+
+ 
+  
+offer.send(function(err,status){
+	res.writeHead(200,{"Content-Type":"text/html"});
+	if(err){ 
+             
+	    console.log(err);}
+
+	else{
+		console.log(offer.id);}
+	
+     })
+
+   });
+
+
 manager.on('sentOfferChanged', function(offer, oldState) {
 	console.log(`Offer #${offer.id} changed: ${tradeoffermanager.ETradeOfferState[oldState]} -> ${tradeoffermanager.ETradeOfferState[offer.state]}`);
 
 	if (offer.state ==tradeoffermanager.ETradeOfferState.Accepted) {
               tradestatus[counter]=new Array();
               tradeitems[counter]=new Array();
-              tradestatus[counter][0]=offer.id;
+              tradestatus[counter][0]=(offer.id).toString();
               //tradeitems[counter][1]=new Array();
                if(counter==250){counter=0;}
 		offer.getReceivedItems(function(err, items) {
@@ -178,31 +221,51 @@ manager.on('sentOfferChanged', function(offer, oldState) {
 		          console.log(tradeitems);
 		          counter++;
 
+		          //send to main bot
+		         if(offer.partner.getSteamID64()!="76561198334505031")
+                  {  var offerdata=[];
+                   var offerobj=null;
+		         
+		          var idstring=null;
+		          var names=items.map(function(item){
+                       console.log(item);
+                      idstring=item.id;
+                      console.log(idstring);
+				      offerdata.push({"appid":570,"contextid":2,"assetid":idstring.toString()});	
+				});
+                  	
 
-              //end of send to main bot
-		 //		console.log("Received: " + names.join(', '));
+              var url="http://www.dotaspinz.com/sendtobot.jsp?idata="+encodeURIComponent(JSON.stringify(offerdata))+"&bno=3";
+
+              console.log(url);
+         
+
+          request.get(url,function(error,response,body){
+          	if(error){
+          		console.log(error);
+          	}else if(response){
+          		console.log(response);
+          	}else if(body){
+          		console.log(body);
+          	}
+          });
+                       }
+
 			}
 		});
 	}
 });
 
-/*manager.on("sentOfferChanged",function(offer,oldState){
-	          console.log(offer.id+" "+oldstate);
-           if(oldState==2)
-           	 {
-           	 	 console.log("trade is active");
-           	 }else if(oldState==3){console.log("trade accepted");}
-	})*/
 
 
 community.on("confKeyNeeded",function(tag,callback){
 	var time=Math.floor(Date.now()/1000);
-	callback(null,time,steamtotp.getConfirmationKey("40lccQ2d9Ua3vuLjiEX3XImxPzc=",time.tag))
+	callback(null,time,steamtotp.getConfirmationKey("iT0gC0eFI6q\/a2ysqzEd05UYtps=",time.tag))
 });
 
 
 community.on("newConfirmation",function(cconfirmation){
-	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("40lccQ2d9Ua3vuLjiEX3XImxPzc=",Math.floor(Date.now()/1000),"allow"),true,function(err){
+	cconfirmation.respond(Math.floor(Date.now()/1000),steamtotp.getConfirmationKey("iT0gC0eFI6q\/a2ysqzEd05UYtps=",Math.floor(Date.now()/1000),"allow"),true,function(err){
 		if(err){
 			console.log("confirmation failed: "+err);
 			return;
@@ -213,47 +276,9 @@ community.on("newConfirmation",function(cconfirmation){
 
 manager.on('newOffer',function(offer){
   console.log("New offer #"+offer.id+" from "+offer.partner.getSteam3RenderedID());
-  if(offer.partner.getSteamID64()=="76561198333035401"||offer.partner.getSteamID64()=="76561198337269000"||offer.partner.getSteamID64()=="76561198337832981")
-  { 
-  	offer.accept(function(err){
+  offer.accept(function(err){
   	if(err){console.log("unable to accept error:"+err);}
   	else{ community.checkConfirmations();
-  		console.log("Trade Accepted");
-           var url="http://www.dotaspinz.com/updatedb.jsp";
-           request.get(url,function(error,response,body){
-            if(error){
-              console.log(error);
-            }else if(response){
-              console.log(response);
-            }else if(body){
-              console.log(body);
-            }
-          });
-
-         /*var options={
-              "host": "www.dotaspinz.com/updatedb.jsp",
-               "method":"get"
-         };
-
-         var req=http.request(options,function(res){
-         	res.on('data',function(chunk){
-                  console.log(chunk);
-         	})
-         });
-
-        req.on('error',function(e){
-           console.log("error while updating the db"+e);
-        });*/
-
-  	   }
-       })
-   }else{
-  		offer.decline(function(err){
-  			if(err){
-  				 console.log("error in decline"+err);
-  			}else{
-  				console.log("successfully declined");
-  			}
-  		})
-  	}
+  		console.log("Trade Accepted");}
+  })
 });
