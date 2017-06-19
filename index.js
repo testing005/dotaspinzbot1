@@ -1,4 +1,4 @@
-var port=/*process.env.PORT||*/5001;
+var port=process.env.PORT||5001;
 var express=require('express');
 var http=require('http');
 var app=new express();
