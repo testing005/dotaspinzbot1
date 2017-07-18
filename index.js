@@ -23,7 +23,7 @@ app.get("/fb",function(req,res){
 
 	res.writeHead(200,{"Content-Type":"text/html"});
 	res.write(" "+"<meta property=\"og:site_name\" content=\"Youtube\">");
-	res.write(" "+"<meta property=\"og:url\" content=\"https://www.youtube.com/watch?v="+id+"\">");
+	//res.write(" "+"<meta property=\"og:url\" content=\"https://www.youtube.com/watch?v="+id+"\">");
 	res.write(" "+"<meta property=\"og:title\" content=\""+title+"\">");
 	res.write(" "+"<meta property=\"og:image\" content=\"https://i.ytimg.com/vi/"+id+"/hqdefault.jpg\">");
 	res.write(" "+"<meta property=\"og:image:width\" content=\"470\"><meta property=\"og:image:height\" content=\"265\">");
